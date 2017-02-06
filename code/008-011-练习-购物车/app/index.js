@@ -61,16 +61,6 @@ cartApp.controller('cartCtrl', function($scope){
         return index;
     }
     /**
-     * 移除一项
-     */
-    $scope.remove = function(id){
-
-        var index = findIndex(id);
-        if (index != -1){
-            $scope.cart.splice(index, 1);
-        }
-    }
-    /**
      * 为某个产品添加数量
      */
     $scope.add = function (id) {
@@ -89,11 +79,36 @@ cartApp.controller('cartCtrl', function($scope){
             if (item.quantity > 1){
                 --item.quantity;
             }else{
-                var returnKey = confirm("从购物车内删除该产品！");
+                var returnKey = confirm("是否从购物车内删除该产品！");
                 if (returnKey){
                     $scope.remove(id);
                 }
             }
         }
     }
+    /**
+     * 移除一项
+     */
+    $scope.remove = function(id){
+
+        var index = findIndex(id);
+        if (index != -1){
+            $scope.cart.splice(index, 1);
+        }
+    }
+    /**
+     * 脏检查
+     */
+    $scope.$watch('cart', function (newValue, oldValue) {
+        angular.forEach(newValue, function (item, key) {
+            if (item.quantity < 1){
+                var returnKey = confirm("是否从购物车内删除该产品！");
+                if (returnKey){
+                    $scope.remove(item.id);
+                }else {
+                    item.quantity = oldValue[key].quantity;
+                }
+            }
+        });
+    }, true);
 });
