@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <link rel="stylesheet" href="../../vendor/bootstrap/css/bootstrap.min.css">
+</head>
+<body ng-app="cartApp">
+    <div class="container" ng-controller="cartCtrl">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>产品编号</th>
+                    <th>产品名字</th>
+                    <th>购买数量</th>
+                    <th>产品单价</th>
+                    <th>产品总价</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="item in cart">
+                <td ng-bind="item.id"></td>
+                <td ng-bind="item.name"></td>
+                <td ng-bind="item.quantity"></td>
+                <td ng-bind="item.price"></td>
+                <td ng-bind="item.price * item.quantity"></td>
+                <td>
+                    <button class="btn btn-danger">移除</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    总购买价{{}}  总购买数量{{}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <script src="../../vendor/angularjs/angular.min.js" type="text/javascript"></script>
+    <script src="../../vendor/jQuery/jquery.min.js" type="text/javascript"></script>
+    <script src="../../vendor/bootstrap/bootstrap.min.js"type="text/javascript"></script>
+    <script src="app/index.js" type="text/javascript"></script>
+</body>
+</html>
